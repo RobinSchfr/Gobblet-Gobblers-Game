@@ -1,7 +1,7 @@
 package com.example.gobblet_gobblers_game;
 
 import javafx.event.EventHandler;
-import javafx.scene.Scene;
+import javafx.scene.*;
 import javafx.scene.input.*;
 
 public class Controller {
@@ -10,32 +10,6 @@ public class Controller {
 
     public Controller(Game game) {
         this.game = game;
-    }
-
-    public int getSquare(double mouseX, double mouseY) {
-        int squareNumber = -1;
-        int[] hLines = {200, 440, 645};
-        int[] vLines = hLines.clone();
-        if (mouseX <= vLines[0] && mouseY <= hLines[0]) {
-            squareNumber = 0;
-        } else if (mouseX <= vLines[1] && mouseY <= hLines[0]) {
-            squareNumber = 1;
-        } else if (mouseY <= hLines[0]) {
-            squareNumber = 2;
-        } else if (mouseX <= vLines[0] && mouseY <= hLines[1]) {
-            squareNumber = 3;
-        } else if (mouseX <= vLines[1] && mouseY <= hLines[1]) {
-            squareNumber = 4;
-        } else if (mouseY <= hLines[1]) {
-            squareNumber = 5;
-        } else if (mouseX <= vLines[0] && mouseY <= hLines[2]) {
-            squareNumber = 6;
-        } else if (mouseX <= vLines[1] && mouseY <= hLines[2]) {
-            squareNumber = 7;
-        } else if (mouseY <= hLines[2]) {
-            squareNumber = 8;
-        }
-        return squareNumber;
     }
 
     public void makeDraggable(GobbletImageView gIV) {
@@ -47,10 +21,6 @@ public class Controller {
                 ClipboardContent content = new ClipboardContent();
                 content.putString(gIV.getColor() + "," + gIV.getNumber());
                 db.setContent(content);
-
-
-                //view.getMain().getChildren().get(0).getChi;
-                
 
                 mouseEvent.consume();
             }
@@ -75,8 +45,8 @@ public class Controller {
             public void handle(DragEvent dragEvent) {
                 if (dragEvent.getGestureSource() != scene
                         && dragEvent.getDragboard().hasString()
-                        && getSquare(dragEvent.getSceneX(), dragEvent.getSceneY()) != -1) {
-                    System.out.println("onDragOver " + getSquare(dragEvent.getSceneX(), dragEvent.getSceneY()));
+                        && view.getGridManager().getSquare(dragEvent.getSceneX(), dragEvent.getSceneY()) != -1) {
+                    System.out.println("onDragOver " + view.getGridManager().getSquare(dragEvent.getSceneX(), dragEvent.getSceneY()));
                     dragEvent.acceptTransferModes(TransferMode.COPY_OR_MOVE);
                 }
                 dragEvent.consume();
