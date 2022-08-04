@@ -21,6 +21,7 @@ public class Controller {
                 ClipboardContent content = new ClipboardContent();
                 content.putString(gIV.getColor() + "," + gIV.getNumber());
                 db.setContent(content);
+                game.setFinishedTurn(false);
 
                 mouseEvent.consume();
             }
@@ -30,17 +31,26 @@ public class Controller {
             @Override
             public void handle(DragEvent dragEvent) {
                 System.out.println("onDragDone");
-                dragEvent.consume();
+                if (!game.isFinishedTurn()) return;
                 if (gIV.getColor().equals("red")) {
                     view.getStorage1().getChildren().remove(gIV);
                 } else {
                     view.getStorage2().getChildren().remove(gIV);
                 }
+
+                dragEvent.consume();
             }
         });
     }
 
     public void makeDropzone(Scene scene) {
+        scene.setOnDragEntered(new EventHandler<DragEvent>() {
+            @Override
+            public void handle(DragEvent dragEvent) {
+                System.out.println("onDragEntered");
+
+            }
+        });
         scene.setOnDragOver(new EventHandler<DragEvent>() {
             public void handle(DragEvent dragEvent) {
                 if (dragEvent.getGestureSource() != scene
@@ -49,7 +59,25 @@ public class Controller {
                     System.out.println("onDragOver " + view.getGridManager().getSquare(dragEvent.getSceneX(), dragEvent.getSceneY()));
                     dragEvent.acceptTransferModes(TransferMode.COPY_OR_MOVE);
                 }
+
                 dragEvent.consume();
+            }
+        });
+
+        scene.setOnDragDropped(new EventHandler<DragEvent>() {
+            @Override
+            public void handle(DragEvent dragEvent) {
+                System.out.println("onDragDropped");
+                game.setFinishedTurn(true);
+
+            }
+        });
+
+        scene.setOnDragExited(new EventHandler<DragEvent>() {
+            @Override
+            public void handle(DragEvent dragEvent) {
+                System.out.println("onDragExited");
+
             }
         });
     }
