@@ -7,7 +7,7 @@ public class Player {
     public Player(String color) {
         this.gobblets = new Gobblet[6];
         for (int i = 1; i <= 6; i++) {
-            this.gobblets[i - 1] = new Gobblet(color, (int) Math.round(i/2.0));
+            this.gobblets[i - 1] = new Gobblet(color, (int) Math.round(i / 2.0));
         }
         this.color = color;
     }

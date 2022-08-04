@@ -1,14 +1,11 @@
 package com.example.gobblet_gobblers_game;
 
 import javafx.geometry.Insets;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.StrokeType;
 import javafx.stage.Stage;
 
 public class View {
@@ -44,7 +41,6 @@ public class View {
 
     private void drawGUI() {
         VBox main = new VBox(MAIN_VBOX_SPACING);
-        // draws grid
 
         this.storage1 = new HBox(STORAGE_SPACING);
         this.storage1.setPadding(new Insets(STORAGE_PADDING));

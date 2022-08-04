@@ -4,6 +4,7 @@ public class Game {
     private Player player1;
     private Player player2;
     private Player activePlayer;
+    private boolean finishedTurn;
     private GameField gameField;
 
     public Game() {
@@ -25,15 +26,23 @@ public class Game {
         return this.player2;
     }
 
-    public Player getActivePlayer(){
+    public Player getActivePlayer() {
         return this.activePlayer;
     }
 
-    public void toggleActivePlayer(){
-        if (this.activePlayer == this.player1){
+    public void toggleActivePlayer() {
+        if (this.activePlayer == this.player1) {
             this.activePlayer = this.player2;
         } else {
             this.activePlayer = this.player1;
         }
+    }
+
+    public boolean isFinishedTurn() {
+        return finishedTurn;
+    }
+
+    public void setFinishedTurn(boolean finishedTurn) {
+        this.finishedTurn = finishedTurn;
     }
 }
