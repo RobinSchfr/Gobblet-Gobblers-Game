@@ -1,5 +1,6 @@
 package com.example.gobblet_gobblers_game;
 
+import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -10,12 +11,14 @@ public class GridManager {
     public static final int GRID_STROKE_WIDTH = 2;
 
     private Group grid;
+    private Point2D[] gridPoints;
 
     public GridManager() {
-        this.createLines();
+        this.gridPoints = new Point2D[9];
+        this.createGrid();
     }
 
-    private void createLines() {
+    private void createGrid() {
         this.grid = new Group();
         Line l1, l2;
         double gridSize = View.WINDOW_WIDTH;
@@ -30,6 +33,18 @@ public class GridManager {
             l2.setStrokeType(StrokeType.OUTSIDE);
             this.grid.getChildren().addAll(l1, l2);
         }
+
+        int currentSquare = 0;
+        for (int i = 1; i < 6; i += 2) {
+            for (int j = 1; j < 6; j += 2) {
+                this.gridPoints[currentSquare] = new Point2D(gridSize / 6 * i, gridSize / 6 * j);
+                currentSquare++;
+            }
+        }
+    }
+
+    public void setSquare(int squareNr){
+        
     }
 
     public int getSquare(double mouseX, double mouseY) {
