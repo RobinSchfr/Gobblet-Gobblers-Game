@@ -13,11 +13,16 @@ public class GridManager {
 
     private Group grid;
     private Point2D[] gridPoints;
+    private Game game;
+    private Controller controller;
 
-    public GridManager() {
+    public GridManager(Game game, Controller controller) {
+        this.game = game;
+        this.controller = controller;
         this.gridPoints = new Point2D[9];
         this.createGrid();
     }
+
 
     private void createGrid() {
         this.grid = new Group();
@@ -51,6 +56,7 @@ public class GridManager {
         gobblet.setScaleY(0.7);
         gobblet.setX(position.getX() - gobblet.getImage().getWidth() / 2);
         gobblet.setY(position.getY() - gobblet.getImage().getWidth() / 2);
+        this.controller.makeDraggable(gobblet);
         this.grid.getChildren().add(gobblet);
     }
 

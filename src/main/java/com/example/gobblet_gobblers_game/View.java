@@ -35,7 +35,7 @@ public class View {
         this.stage = stage;
         this.game = game;
         this.controller = controller;
-        this.gridManager = new GridManager();
+        this.gridManager = new GridManager(this.game, this.controller);
         this.drawGUI();
     }
 

@@ -45,4 +45,8 @@ public class Game {
     public void setFinishedTurn(boolean finishedTurn) {
         this.finishedTurn = finishedTurn;
     }
+
+    public GameField getGameField() {
+        return gameField;
+    }
 }

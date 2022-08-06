@@ -4,11 +4,11 @@ import javafx.event.EventHandler;
 import javafx.scene.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.*;
-import javafx.scene.transform.Transform;
 
 public class Controller {
     private View view;
     private Game game;
+    private Gobblet tempDragGobblet;
 
     public Controller(Game game) {
         this.game = game;
@@ -24,6 +24,7 @@ public class Controller {
                 Image dragView = new Image(gIV.getImage().getUrl(), gIV.getImage().getWidth() * 0.7, gIV.getImage().getHeight() * 0.7, true, true);
                 db.setDragView(dragView);
                 content.putString(gIV.getColor() + "," + gIV.getNumber());
+                tempDragGobblet = new Gobblet(gIV.getColor(), gIV.getNumber());
                 db.setContent(content);
                 game.setFinishedTurn(false);
 
@@ -59,7 +60,8 @@ public class Controller {
             public void handle(DragEvent dragEvent) {
                 if (dragEvent.getGestureSource() != scene
                         && dragEvent.getDragboard().hasString()
-                        && view.getGridManager().getSquare(dragEvent.getSceneX(), dragEvent.getSceneY()) != -1) {
+                        && view.getGridManager().getSquare(dragEvent.getSceneX(), dragEvent.getSceneY()) != -1
+                        && game.getGameField().isValidMove(view.getGridManager().getSquare(dragEvent.getSceneX(), dragEvent.getSceneY()), tempDragGobblet)) {
                     System.out.println("onDragOver " + view.getGridManager().getSquare(dragEvent.getSceneX(), dragEvent.getSceneY()));
                     dragEvent.acceptTransferModes(TransferMode.COPY_OR_MOVE);
                 }
@@ -75,6 +77,7 @@ public class Controller {
                 game.setFinishedTurn(true);
                 Dragboard db = dragEvent.getDragboard();
                 String[] gobbletValues = db.getString().split(",");
+                game.getGameField().setGobblet(view.getGridManager().getSquare(dragEvent.getSceneX(), dragEvent.getSceneY()), tempDragGobblet);
                 view.getGridManager().setGobbletOnSquare(view.getGridManager().getSquare(dragEvent.getSceneX(), dragEvent.getSceneY()), gobbletValues[0], Integer.parseInt(gobbletValues[1]));
             }
         });
@@ -83,7 +86,7 @@ public class Controller {
             @Override
             public void handle(DragEvent dragEvent) {
                 System.out.println("onDragExited");
-
+                tempDragGobblet = null;
             }
         });
     }
