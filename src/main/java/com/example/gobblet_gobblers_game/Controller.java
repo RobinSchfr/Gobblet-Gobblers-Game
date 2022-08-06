@@ -2,7 +2,9 @@ package com.example.gobblet_gobblers_game;
 
 import javafx.event.EventHandler;
 import javafx.scene.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.*;
+import javafx.scene.transform.Transform;
 
 public class Controller {
     private View view;
@@ -19,6 +21,8 @@ public class Controller {
                 System.out.println("onDragDetected");
                 Dragboard db = gIV.startDragAndDrop(TransferMode.ANY);
                 ClipboardContent content = new ClipboardContent();
+                Image dragView = new Image(gIV.getImage().getUrl(), gIV.getImage().getWidth() * 0.7, gIV.getImage().getHeight() * 0.7, true, true);
+                db.setDragView(dragView);
                 content.putString(gIV.getColor() + "," + gIV.getNumber());
                 db.setContent(content);
                 game.setFinishedTurn(false);
@@ -69,7 +73,9 @@ public class Controller {
             public void handle(DragEvent dragEvent) {
                 System.out.println("onDragDropped");
                 game.setFinishedTurn(true);
-
+                Dragboard db = dragEvent.getDragboard();
+                String[] gobbletValues = db.getString().split(",");
+                view.getGridManager().setGobbletOnSquare(view.getGridManager().getSquare(dragEvent.getSceneX(), dragEvent.getSceneY()), gobbletValues[0], Integer.parseInt(gobbletValues[1]));
             }
         });
 

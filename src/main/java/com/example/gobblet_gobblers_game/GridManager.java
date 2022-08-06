@@ -2,6 +2,7 @@ package com.example.gobblet_gobblers_game;
 
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.StrokeType;
@@ -37,14 +38,20 @@ public class GridManager {
         int currentSquare = 0;
         for (int i = 1; i < 6; i += 2) {
             for (int j = 1; j < 6; j += 2) {
-                this.gridPoints[currentSquare] = new Point2D(gridSize / 6 * i, gridSize / 6 * j);
+                this.gridPoints[currentSquare] = new Point2D(gridSize / 6 * j, gridSize / 6 * i);
                 currentSquare++;
             }
         }
     }
 
-    public void setSquare(int squareNr){
-        
+    public void setGobbletOnSquare(int squareNr, String color, int number) {
+        Point2D position = this.gridPoints[squareNr];
+        GobbletImageView gobblet = new GobbletImageView(new Image(String.format(View.IMAGES_GOBBLETS, color, number)), color, number);
+        gobblet.setScaleX(0.7);
+        gobblet.setScaleY(0.7);
+        gobblet.setX(position.getX() - gobblet.getImage().getWidth() / 2);
+        gobblet.setY(position.getY() - gobblet.getImage().getWidth() / 2);
+        this.grid.getChildren().add(gobblet);
     }
 
     public int getSquare(double mouseX, double mouseY) {
