@@ -56,6 +56,7 @@ public class GridManager {
         gobblet.setScaleY(0.7);
         gobblet.setX(position.getX() - gobblet.getImage().getWidth() / 2);
         gobblet.setY(position.getY() - gobblet.getImage().getWidth() / 2);
+
         this.controller.makeDraggable(gobblet);
         this.grid.getChildren().add(gobblet);
     }
@@ -83,6 +84,10 @@ public class GridManager {
             squareNumber = 8;
         }
         return squareNumber;
+    }
+
+    public void removeGobbletFromGrid(GobbletImageView gobblet){
+        this.grid.getChildren().remove(gobblet);
     }
 
     public Group getGrid() {

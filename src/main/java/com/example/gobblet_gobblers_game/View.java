@@ -86,6 +86,20 @@ public class View {
         return gobblet;
     }
 
+    public void disableStorage1(){
+        this.storage1.setDisable(true);
+        this.storage1.setOpacity(0.3);
+        this.storage2.setDisable(false);
+        this.storage2.setOpacity(1);
+    }
+
+    public void disableStorage2(){
+        this.storage2.setDisable(true);
+        this.storage2.setOpacity(0.3);
+        this.storage1.setDisable(false);
+        this.storage1.setOpacity(1);
+    }
+
     public HBox getStorage1() {
         return storage1;
     }

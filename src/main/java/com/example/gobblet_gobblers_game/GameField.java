@@ -18,7 +18,7 @@ public class GameField {
         return this.field[squareNr / 3][squareNr % 3];
     }
 
-    private Gobblet getTopOfStack(int squareNr) {
+    public Gobblet getTopOfStack(int squareNr) {
         if (getStack(squareNr).empty()) {
             return null;
         }
@@ -32,7 +32,20 @@ public class GameField {
         }
         return newGobblet.getNumber() > currentGobblet.getNumber();
     }
-    public void setGobblet(int squareNr, Gobblet newGobblet){
+
+    public void setGobblet(int squareNr, Gobblet newGobblet) {
         getStack(squareNr).push(newGobblet);
+    }
+
+    public void removeGobblet(int squareNr) {
+        getStack(squareNr).pop();
+    }
+
+    public int getSize() {
+        int size = 0;
+        for (int i = 0; i < 9; i++) {
+            size += getStack(i).size();
+        }
+        return size;
     }
 }
