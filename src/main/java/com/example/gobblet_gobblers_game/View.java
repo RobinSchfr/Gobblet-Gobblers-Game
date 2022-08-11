@@ -74,18 +74,18 @@ public class View {
         this.stage.setResizable(false);
         this.stage.setScene(scene);
         this.stage.show();
-        scene.setOnMouseMoved(e -> System.out.println(gridManager.getSquare(e.getX(), e.getY())));
+        scene.setOnMouseMoved(e -> System.out.println(controller.getSquare(e)));
         controller.makeDropzone(scene);
     }
 
-    public void disableStorage1(){
+    public void disableStorage1() {
         this.storage1.setDisable(true);
         this.storage1.setOpacity(0.3);
         this.storage2.setDisable(false);
         this.storage2.setOpacity(1);
     }
 
-    public void disableStorage2(){
+    public void disableStorage2() {
         this.storage2.setDisable(true);
         this.storage2.setOpacity(0.3);
         this.storage1.setDisable(false);

@@ -1,5 +1,6 @@
 package com.example.gobblet_gobblers_game;
 
+import javafx.event.Event;
 import javafx.scene.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.*;
@@ -23,7 +24,7 @@ public class Controller {
             content.putString(gIV.getGobblet().getColor() + "," + gIV.getGobblet().getNumber());
             tempDragGobblet = new Gobblet(gIV.getGobblet().getColor(), gIV.getGobblet().getNumber());
             tempDragGobblet.setImage(gIV);
-            tempDragGobblet.setSquarePos(view.getGridManager().getSquare(mouseEvent.getSceneX(), mouseEvent.getSceneY()));
+            tempDragGobblet.setSquarePos(getSquare(mouseEvent));
             db.setContent(content);
             game.setFinishedTurn(false);
 
@@ -48,9 +49,9 @@ public class Controller {
         scene.setOnDragOver(dragEvent -> {
             if (dragEvent.getGestureSource() != scene
                     && dragEvent.getDragboard().hasString()
-                    && view.getGridManager().getSquare(dragEvent.getSceneX(), dragEvent.getSceneY()) != -1
-                    && game.getGameField().isValidMove(view.getGridManager().getSquare(dragEvent.getSceneX(), dragEvent.getSceneY()), tempDragGobblet)) {
-                System.out.println("onDragOver " + view.getGridManager().getSquare(dragEvent.getSceneX(), dragEvent.getSceneY()));
+                    && getSquare(dragEvent) != -1
+                    && game.getGameField().isValidMove(getSquare(dragEvent), tempDragGobblet)) {
+                System.out.println("onDragOver " + getSquare(dragEvent));
                 dragEvent.acceptTransferModes(TransferMode.MOVE);
             }
 
@@ -62,8 +63,8 @@ public class Controller {
             game.setFinishedTurn(true);
             Dragboard db = dragEvent.getDragboard();
             String[] gobbletValues = db.getString().split(",");
-            view.getGridManager().setGobbletOnSquare(view.getGridManager().getSquare(dragEvent.getSceneX(), dragEvent.getSceneY()), gobbletValues[0], Integer.parseInt(gobbletValues[1]));
-            game.getGameField().setGobblet(view.getGridManager().getSquare(dragEvent.getSceneX(), dragEvent.getSceneY()), tempDragGobblet);
+            view.getGridManager().setGobbletOnSquare(view.getGridManager().controller.getSquare(dragEvent), gobbletValues[0], Integer.parseInt(gobbletValues[1]));
+            game.getGameField().setGobblet(view.getGridManager().controller.getSquare(dragEvent), tempDragGobblet);
             if (tempDragGobblet.getSquarePos() != -1) {
                 System.out.println("Removed1!");
                 game.getGameField().removeGobblet(tempDragGobblet.getSquarePos());
@@ -80,5 +81,39 @@ public class Controller {
 
     public void setView(View view) {
         this.view = view;
+    }
+
+    public int getSquare(Event event) {
+        double mouseX, mouseY;
+        if (event instanceof DragEvent e) {
+            mouseX = e.getSceneX();
+            mouseY = e.getSceneY();
+        } else {
+            MouseEvent e = (MouseEvent) event;
+            mouseX = e.getSceneX();
+            mouseY = e.getSceneY();
+        }
+        int squareNumber = -1;
+        int[] lines = {View.WINDOW_WIDTH / 3, View.WINDOW_WIDTH / 3 * 2, View.WINDOW_WIDTH};
+        if (mouseX <= lines[0] && mouseY <= lines[0]) {
+            squareNumber = 0;
+        } else if (mouseX <= lines[1] && mouseY <= lines[0]) {
+            squareNumber = 1;
+        } else if (mouseY <= lines[0]) {
+            squareNumber = 2;
+        } else if (mouseX <= lines[0] && mouseY <= lines[1]) {
+            squareNumber = 3;
+        } else if (mouseX <= lines[1] && mouseY <= lines[1]) {
+            squareNumber = 4;
+        } else if (mouseY <= lines[1]) {
+            squareNumber = 5;
+        } else if (mouseX <= lines[0] && mouseY <= lines[2]) {
+            squareNumber = 6;
+        } else if (mouseX <= lines[1] && mouseY <= lines[2]) {
+            squareNumber = 7;
+        } else if (mouseY <= lines[2]) {
+            squareNumber = 8;
+        }
+        return squareNumber;
     }
 }

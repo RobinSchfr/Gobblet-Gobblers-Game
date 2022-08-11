@@ -13,7 +13,7 @@ public class GridManager {
     private Group grid;
     private Point2D[] gridPoints;
     private Game game;
-    private Controller controller;
+    Controller controller;
 
     public GridManager(Game game, Controller controller) {
         this.game = game;
@@ -58,31 +58,6 @@ public class GridManager {
 
         this.controller.makeDraggable(gobblet.getImgView());
         this.grid.getChildren().add(gobblet.getImgView());
-    }
-
-    public int getSquare(double mouseX, double mouseY) {
-        int squareNumber = -1;
-        int[] lines = {View.WINDOW_WIDTH / 3, View.WINDOW_WIDTH / 3 * 2, View.WINDOW_WIDTH};
-        if (mouseX <= lines[0] && mouseY <= lines[0]) {
-            squareNumber = 0;
-        } else if (mouseX <= lines[1] && mouseY <= lines[0]) {
-            squareNumber = 1;
-        } else if (mouseY <= lines[0]) {
-            squareNumber = 2;
-        } else if (mouseX <= lines[0] && mouseY <= lines[1]) {
-            squareNumber = 3;
-        } else if (mouseX <= lines[1] && mouseY <= lines[1]) {
-            squareNumber = 4;
-        } else if (mouseY <= lines[1]) {
-            squareNumber = 5;
-        } else if (mouseX <= lines[0] && mouseY <= lines[2]) {
-            squareNumber = 6;
-        } else if (mouseX <= lines[1] && mouseY <= lines[2]) {
-            squareNumber = 7;
-        } else if (mouseY <= lines[2]) {
-            squareNumber = 8;
-        }
-        return squareNumber;
     }
 
     public void removeGobbletFromGrid(Gobblet gobblet) {
