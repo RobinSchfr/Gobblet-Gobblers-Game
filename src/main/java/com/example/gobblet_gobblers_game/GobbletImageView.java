@@ -4,20 +4,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class GobbletImageView extends ImageView {
-    private String color;
-    private int number;
+    private Gobblet gobblet;
 
-    public GobbletImageView(Image img, String color, int number) {
+    public GobbletImageView(Image img, Gobblet gobblet) {
         super(img);
-        this.color = color;
-        this.number = number;
+        this.gobblet = gobblet;
     }
 
-    public String getColor() {
-        return color;
-    }
-
-    public int getNumber() {
-        return number;
+    public Gobblet getGobblet() {
+        return gobblet;
     }
 }

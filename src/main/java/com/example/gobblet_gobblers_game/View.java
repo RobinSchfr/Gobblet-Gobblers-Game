@@ -3,7 +3,6 @@ package com.example.gobblet_gobblers_game;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -51,17 +50,18 @@ public class View {
         main.getChildren().addAll(gridManager.getGrid(), this.storage1, this.storage2);
 
         // draws gobblet storages
-        ImageView gobbletImg;
+        Gobblet gobblet;
         HBox storage;
         for (Player player : this.game.getPlayers()) {
-            for (Gobblet gobblet : player.getGobblets()) {
-                gobbletImg = this.loadGobbletImage(player.getColor(), gobblet.getNumber());
+            for (Gobblet gob : player.getGobblets()) {
+                gobblet = new Gobblet(player.getColor(), gob.getNumber(), true);
                 if (player == this.game.getPlayer1()) {
                     storage = this.storage1;
                 } else {
                     storage = this.storage2;
                 }
-                storage.getChildren().add(gobbletImg);
+                controller.makeDraggable(gobblet.getImgView());
+                storage.getChildren().add(gobblet.getImgView());
             }
         }
         this.storage1.setBackground(new Background(new BackgroundFill(PLAYER1_STORAGE_COLOR, new CornerRadii(20), null)));
@@ -76,14 +76,6 @@ public class View {
         this.stage.show();
         scene.setOnMouseMoved(e -> System.out.println(gridManager.getSquare(e.getX(), e.getY())));
         controller.makeDropzone(scene);
-    }
-
-    private GobbletImageView loadGobbletImage(String color, int number) {
-        GobbletImageView gobblet = new GobbletImageView(new Image(String.format(IMAGES_GOBBLETS, color, number)), color, number);
-        gobblet.setScaleX(GOBBLET_SCALE);
-        gobblet.setScaleY(GOBBLET_SCALE);
-        controller.makeDraggable(gobblet);
-        return gobblet;
     }
 
     public void disableStorage1(){

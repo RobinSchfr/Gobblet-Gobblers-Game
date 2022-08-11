@@ -2,7 +2,6 @@ package com.example.gobblet_gobblers_game;
 
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
-import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.StrokeType;
@@ -51,14 +50,14 @@ public class GridManager {
 
     public void setGobbletOnSquare(int squareNr, String color, int number) {
         Point2D position = this.gridPoints[squareNr];
-        GobbletImageView gobblet = new GobbletImageView(new Image(String.format(View.IMAGES_GOBBLETS, color, number)), color, number);
-        gobblet.setScaleX(0.7);
-        gobblet.setScaleY(0.7);
-        gobblet.setX(position.getX() - gobblet.getImage().getWidth() / 2);
-        gobblet.setY(position.getY() - gobblet.getImage().getWidth() / 2);
+        Gobblet gobblet = new Gobblet(color, number, true);
+        gobblet.getImgView().setScaleX(0.7);
+        gobblet.getImgView().setScaleY(0.7);
+        gobblet.getImgView().setX(position.getX() - gobblet.getImgView().getImage().getWidth() / 2);
+        gobblet.getImgView().setY(position.getY() - gobblet.getImgView().getImage().getWidth() / 2);
 
-        this.controller.makeDraggable(gobblet);
-        this.grid.getChildren().add(gobblet);
+        this.controller.makeDraggable(gobblet.getImgView());
+        this.grid.getChildren().add(gobblet.getImgView());
     }
 
     public int getSquare(double mouseX, double mouseY) {
@@ -86,8 +85,8 @@ public class GridManager {
         return squareNumber;
     }
 
-    public void removeGobbletFromGrid(GobbletImageView gobblet){
-        this.grid.getChildren().remove(gobblet);
+    public void removeGobbletFromGrid(Gobblet gobblet) {
+        this.grid.getChildren().remove(gobblet.getImgView());
     }
 
     public Group getGrid() {
