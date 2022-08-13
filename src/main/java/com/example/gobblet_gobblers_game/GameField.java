@@ -6,16 +6,16 @@ public class GameField {
     private Stack[][] field;
 
     public GameField() {
-        this.field = new Stack[3][3];
+        field = new Stack[3][3];
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                this.field[i][j] = new Stack<Gobblet>();
+                field[i][j] = new Stack<Gobblet>();
             }
         }
     }
 
     private Stack getStack(int squareNr) {
-        return this.field[squareNr / 3][squareNr % 3];
+        return field[squareNr / 3][squareNr % 3];
     }
 
     public Gobblet getTopOfStack(int squareNr) {

@@ -1,40 +1,40 @@
 package com.example.gobblet_gobblers_game;
 
 public class Game {
+    private GameField gameField;
+    private Player activePlayer;
     private Player player1;
     private Player player2;
-    private Player activePlayer;
     private boolean finishedTurn;
-    private GameField gameField;
 
     public Game() {
-        this.player1 = new Player("red");
-        this.player2 = new Player("blue");
-        this.activePlayer = this.player1;
-        this.gameField = new GameField();
+        player1 = new Player("red");
+        player2 = new Player("blue");
+        activePlayer = player1;
+        gameField = new GameField();
     }
 
     public Player[] getPlayers() {
-        return new Player[]{this.player1, this.player2};
+        return new Player[]{player1, player2};
     }
 
     public Player getPlayer1() {
-        return this.player1;
+        return player1;
     }
 
     public Player getPlayer2() {
-        return this.player2;
+        return player2;
     }
 
     public Player getActivePlayer() {
-        return this.activePlayer;
+        return activePlayer;
     }
 
     public void toggleActivePlayer() {
-        if (this.activePlayer == this.player1) {
-            this.activePlayer = this.player2;
+        if (activePlayer == player1) {
+            activePlayer = player2;
         } else {
-            this.activePlayer = this.player1;
+            activePlayer = player1;
         }
     }
 

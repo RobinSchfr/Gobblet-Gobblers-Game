@@ -9,6 +9,8 @@ import javafx.scene.shape.StrokeType;
 public class GridManager {
     public static final Color GRID_COLOR = Color.LIGHTGRAY;
     public static final int GRID_STROKE_WIDTH = 2;
+    public static final int AMOUNT_SQUARES = 9;
+    public static final double GOBBLET_GRID_SCALE = 0.7;
 
     private Group grid;
     private Point2D[] gridPoints;
@@ -18,13 +20,13 @@ public class GridManager {
     public GridManager(Game game, Controller controller) {
         this.game = game;
         this.controller = controller;
-        this.gridPoints = new Point2D[9];
-        this.createGrid();
+        gridPoints = new Point2D[AMOUNT_SQUARES];
+        createGrid();
     }
 
 
     private void createGrid() {
-        this.grid = new Group();
+        grid = new Group();
         Line l1, l2;
         double gridSize = View.WINDOW_WIDTH;
         for (int i = 1; i < 3; i++) {
@@ -36,35 +38,33 @@ public class GridManager {
             l2.setStroke(GRID_COLOR);
             l1.setStrokeType(StrokeType.OUTSIDE);
             l2.setStrokeType(StrokeType.OUTSIDE);
-            this.grid.getChildren().addAll(l1, l2);
+            grid.getChildren().addAll(l1, l2);
         }
-
         int currentSquare = 0;
         for (int i = 1; i < 6; i += 2) {
             for (int j = 1; j < 6; j += 2) {
-                this.gridPoints[currentSquare] = new Point2D(gridSize / 6 * j, gridSize / 6 * i);
+                gridPoints[currentSquare] = new Point2D(gridSize / 6 * j, gridSize / 6 * i);
                 currentSquare++;
             }
         }
     }
 
     public void setGobbletOnSquare(int squareNr, String color, int number) {
-        Point2D position = this.gridPoints[squareNr];
+        Point2D position = gridPoints[squareNr];
         Gobblet gobblet = new Gobblet(color, number, true);
-        gobblet.getImgView().setScaleX(0.7);
-        gobblet.getImgView().setScaleY(0.7);
+        gobblet.getImgView().setScaleX(GOBBLET_GRID_SCALE);
+        gobblet.getImgView().setScaleY(GOBBLET_GRID_SCALE);
         gobblet.getImgView().setX(position.getX() - gobblet.getImgView().getImage().getWidth() / 2);
         gobblet.getImgView().setY(position.getY() - gobblet.getImgView().getImage().getWidth() / 2);
-
-        this.controller.makeDraggable(gobblet.getImgView());
-        this.grid.getChildren().add(gobblet.getImgView());
+        grid.getChildren().add(gobblet.getImgView());
+        controller.makeDraggable(gobblet.getImgView());
     }
 
     public void removeGobbletFromGrid(Gobblet gobblet) {
-        this.grid.getChildren().remove(gobblet.getImgView());
+        grid.getChildren().remove(gobblet.getImgView());
     }
 
     public Group getGrid() {
-        return this.grid;
+        return grid;
     }
 }

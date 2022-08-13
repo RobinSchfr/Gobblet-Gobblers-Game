@@ -6,9 +6,9 @@ import javafx.scene.image.Image;
 import javafx.scene.input.*;
 
 public class Controller {
-    private View view;
     private Game game;
     private Gobblet tempDragGobblet;
+    private View view;
 
     public Controller(Game game) {
         this.game = game;
@@ -19,7 +19,7 @@ public class Controller {
             System.out.println("onDragDetected");
             Dragboard db = gIV.startDragAndDrop(TransferMode.ANY);
             ClipboardContent content = new ClipboardContent();
-            Image dragView = new Image(gIV.getImage().getUrl(), gIV.getImage().getWidth() * 0.7, gIV.getImage().getHeight() * 0.7, true, true);
+            Image dragView = new Image(gIV.getImage().getUrl(), gIV.getImage().getWidth() * GridManager.GOBBLET_GRID_SCALE, gIV.getImage().getHeight() * GridManager.GOBBLET_GRID_SCALE, true, true);
             db.setDragView(dragView);
             content.putString(gIV.getGobblet().getColor() + "," + gIV.getGobblet().getNumber());
             tempDragGobblet = new Gobblet(gIV.getGobblet().getColor(), gIV.getGobblet().getNumber());
@@ -27,7 +27,6 @@ public class Controller {
             tempDragGobblet.setSquarePos(getSquare(mouseEvent));
             db.setContent(content);
             game.setFinishedTurn(false);
-
             mouseEvent.consume();
         });
 
@@ -39,7 +38,6 @@ public class Controller {
             } else {
                 view.getStorage2().getChildren().remove(gIV);
             }
-
             dragEvent.consume();
         });
     }
@@ -47,14 +45,10 @@ public class Controller {
     public void makeDropzone(Scene scene) {
         scene.setOnDragEntered(dragEvent -> System.out.println("onDragEntered"));
         scene.setOnDragOver(dragEvent -> {
-            if (dragEvent.getGestureSource() != scene
-                    && dragEvent.getDragboard().hasString()
-                    && getSquare(dragEvent) != -1
-                    && game.getGameField().isValidMove(getSquare(dragEvent), tempDragGobblet)) {
+            if (dragEvent.getGestureSource() != scene && dragEvent.getDragboard().hasString() && getSquare(dragEvent) != -1 && game.getGameField().isValidMove(getSquare(dragEvent), tempDragGobblet)) {
                 System.out.println("onDragOver " + getSquare(dragEvent));
                 dragEvent.acceptTransferModes(TransferMode.MOVE);
             }
-
             dragEvent.consume();
         });
 
@@ -71,6 +65,7 @@ public class Controller {
                 System.out.println("size: " + game.getGameField().getSize());
                 view.getGridManager().removeGobbletFromGrid(tempDragGobblet);
             }
+            dragEvent.consume();
         });
 
         scene.setOnDragExited(dragEvent -> {
@@ -83,7 +78,7 @@ public class Controller {
         this.view = view;
     }
 
-    public int getSquare(Event event) {
+    private int getSquare(Event event) {
         double mouseX, mouseY;
         if (event instanceof DragEvent e) {
             mouseX = e.getSceneX();

@@ -3,6 +3,8 @@ package com.example.gobblet_gobblers_game;
 import javafx.scene.image.Image;
 
 public class Gobblet {
+    public static final String IMAGES_GOBBLETS = "file:src/main/resources/images/gobblet_%s_%d.png";
+
     private GobbletImageView gobbletImageView;
     private String color;
     private int number;
@@ -15,15 +17,14 @@ public class Gobblet {
     public Gobblet(String color, int number, boolean addImageView) {
         this.color = color;
         this.number = number;
-        this.squarePos = -1;
-        if (addImageView)
-            this.loadImageView();
+        squarePos = -1;
+        if (addImageView) {
+            loadImageView();
+        }
     }
 
     private void loadImageView() {
-        this.gobbletImageView = new GobbletImageView(new Image(String.format(View.IMAGES_GOBBLETS, color, number)), this);
-        this.gobbletImageView.setScaleX(View.GOBBLET_SCALE);
-        this.gobbletImageView.setScaleY(View.GOBBLET_SCALE);
+        gobbletImageView = new GobbletImageView(new Image(String.format(IMAGES_GOBBLETS, color, number)), this);
     }
 
     public String getColor() {
@@ -34,12 +35,12 @@ public class Gobblet {
         return number;
     }
 
-    public void setImage(GobbletImageView gobbletImageView){
+    public void setImage(GobbletImageView gobbletImageView) {
         this.gobbletImageView = gobbletImageView;
     }
 
     public GobbletImageView getImgView() {
-        return this.gobbletImageView;
+        return gobbletImageView;
     }
 
     public int getSquarePos() {
