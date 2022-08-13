@@ -1,10 +1,13 @@
 package com.example.gobblet_gobblers_game;
 
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 public class View {
@@ -20,6 +23,7 @@ public class View {
     public static final int STORAGE_SPACING = -150;
     public static final int WINDOW_HEIGHT = 900;
     public static final int WINDOW_WIDTH = 650;
+    public static final double DISABLED_OPACITY = 0.3;
 
     private Controller controller;
     private GridManager gridManager;
@@ -35,6 +39,7 @@ public class View {
         this.controller = controller;
         gridManager = new GridManager(game, controller);
         drawGUI();
+        showAccessibleUI();
     }
 
     private void drawGUI() {
@@ -71,18 +76,29 @@ public class View {
         controller.makeDropzone(scene);
     }
 
-    public void disableStorage1() {
-        storage1.setDisable(true);
-        storage1.setOpacity(0.3);
-        storage2.setDisable(false);
-        storage2.setOpacity(1);
-    }
-
-    public void disableStorage2() {
-        storage2.setDisable(true);
-        storage2.setOpacity(0.3);
-        storage1.setDisable(false);
-        storage1.setOpacity(1);
+    public void showAccessibleUI() {
+        HBox accessible, inaccessible;
+        if (game.getActivePlayer() == game.getPlayer1()) {
+            accessible = storage1;
+            inaccessible = storage2;
+        } else {
+            accessible = storage2;
+            inaccessible = storage1;
+        }
+        accessible.setDisable(false);
+        accessible.setOpacity(1);
+        inaccessible.setDisable(true);
+        inaccessible.setOpacity(DISABLED_OPACITY);
+        for (int i = 0; i < gridManager.getGrid().getChildren().size(); i++) {
+            Node gridObj = gridManager.getGrid().getChildren().get(i);
+            if (gridObj instanceof Line) {
+                continue;
+            }
+            gridObj.setEffect(null);
+            if (((GobbletImageView) gridObj).getGobblet().getColor().equals(game.getActivePlayer().getColor()) && game.getGameField().isOnTop(((GobbletImageView) gridObj).getGobblet())){
+                gridObj.setEffect(new DropShadow(30, GridManager.GRID_COLOR));
+            }
+        }
     }
 
     public HBox getStorage1() {

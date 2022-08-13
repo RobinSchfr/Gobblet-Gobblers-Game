@@ -15,7 +15,7 @@ public class GridManager {
     private Group grid;
     private Point2D[] gridPoints;
     private Game game;
-    Controller controller;
+    private Controller controller;
 
     public GridManager(Game game, Controller controller) {
         this.game = game;
@@ -23,7 +23,6 @@ public class GridManager {
         gridPoints = new Point2D[AMOUNT_SQUARES];
         createGrid();
     }
-
 
     private void createGrid() {
         grid = new Group();
@@ -49,7 +48,7 @@ public class GridManager {
         }
     }
 
-    public void setGobbletOnSquare(int squareNr, String color, int number) {
+    public Gobblet setGobbletOnSquare(int squareNr, String color, int number) {
         Point2D position = gridPoints[squareNr];
         Gobblet gobblet = new Gobblet(color, number, true);
         gobblet.getImgView().setScaleX(GOBBLET_GRID_SCALE);
@@ -58,6 +57,7 @@ public class GridManager {
         gobblet.getImgView().setY(position.getY() - gobblet.getImgView().getImage().getWidth() / 2);
         grid.getChildren().add(gobblet.getImgView());
         controller.makeDraggable(gobblet.getImgView());
+        return gobblet;
     }
 
     public void removeGobbletFromGrid(Gobblet gobblet) {

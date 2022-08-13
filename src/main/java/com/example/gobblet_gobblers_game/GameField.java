@@ -33,6 +33,20 @@ public class GameField {
         return newGobblet.getNumber() > currentGobblet.getNumber();
     }
 
+    public boolean isOnTop(Gobblet gobblet) {
+        for (int i = 0; i < GridManager.AMOUNT_SQUARES; i++) {
+            if (getTopOfStack(i) == gobblet) {
+                return true;
+            }
+        }
+        System.out.println("False");
+        return false;
+    }
+
+    public void checkForWin(){
+
+    }
+
     public void setGobblet(int squareNr, Gobblet newGobblet) {
         getStack(squareNr).push(newGobblet);
     }

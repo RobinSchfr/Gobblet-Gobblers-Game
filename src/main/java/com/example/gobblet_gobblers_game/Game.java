@@ -10,8 +10,8 @@ public class Game {
     public Game() {
         player1 = new Player("red");
         player2 = new Player("blue");
-        activePlayer = player1;
         gameField = new GameField();
+        toggleActivePlayer();
     }
 
     public Player[] getPlayers() {
