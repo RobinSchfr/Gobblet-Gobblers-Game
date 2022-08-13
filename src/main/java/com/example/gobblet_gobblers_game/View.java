@@ -16,6 +16,7 @@ public class View {
     public static final String BACKGROUND_COLOR = "#191919";
     public static final String IMAGE_ICON = "file:src/main/resources/images/icon_red_blue.png";
     public static final String TITLE = "Gobblet Gobblers";
+    public static final double DISABLED_OPACITY = 0.3;
     public static final double GOBBLET_STORAGE_SCALE = 0.3;
     public static final int BORDER_RADIUS = 20;
     public static final int MAIN_VBOX_SPACING = 10;
@@ -23,21 +24,19 @@ public class View {
     public static final int STORAGE_SPACING = -150;
     public static final int WINDOW_HEIGHT = 900;
     public static final int WINDOW_WIDTH = 650;
-    public static final double DISABLED_OPACITY = 0.3;
 
-    private Controller controller;
-    private GridManager gridManager;
     private HBox storage1;
     private HBox storage2;
-    private Scene scene;
+    private final Controller controller;
     private final Game game;
+    private final GridManager gridManager;
     private final Stage stage;
 
     public View(Stage stage, Game game, Controller controller) {
         this.stage = stage;
         this.game = game;
         this.controller = controller;
-        gridManager = new GridManager(game, controller);
+        gridManager = new GridManager(controller);
         drawGUI();
         showAccessibleUI();
     }
@@ -49,11 +48,9 @@ public class View {
         storage2 = new HBox(STORAGE_SPACING);
         storage2.setPadding(new Insets(STORAGE_PADDING));
         main.getChildren().addAll(gridManager.getGrid(), storage1, storage2);
-        Gobblet gobblet;
         HBox storage;
         for (Player player : game.getPlayers()) {
-            for (Gobblet gob : player.getGobblets()) {
-                gobblet = new Gobblet(player.getColor(), gob.getNumber(), true);
+            for (Gobblet gobblet : player.getGobblets()) {
                 if (player == game.getPlayer1()) {
                     storage = storage1;
                 } else {
@@ -67,7 +64,7 @@ public class View {
         }
         storage1.setBackground(new Background(new BackgroundFill(PLAYER1_STORAGE_COLOR, new CornerRadii(BORDER_RADIUS), null)));
         storage2.setBackground(new Background(new BackgroundFill(PLAYER2_STORAGE_COLOR, new CornerRadii(BORDER_RADIUS), null)));
-        scene = new Scene(main, WINDOW_WIDTH, WINDOW_HEIGHT, Color.web(BACKGROUND_COLOR));
+        Scene scene = new Scene(main, WINDOW_WIDTH, WINDOW_HEIGHT, Color.web(BACKGROUND_COLOR));
         stage.setTitle(TITLE);
         stage.getIcons().add(new Image(IMAGE_ICON));
         stage.setResizable(false);
@@ -95,7 +92,7 @@ public class View {
                 continue;
             }
             gridObj.setEffect(null);
-            if (((GobbletImageView) gridObj).getGobblet().getColor().equals(game.getActivePlayer().getColor()) && game.getGameField().isOnTop(((GobbletImageView) gridObj).getGobblet())){
+            if (((GobbletImageView) gridObj).getGobblet().getColor().equals(game.getActivePlayer().getColor()) && game.getGameField().isOnTop(((GobbletImageView) gridObj).getGobblet())) {
                 gridObj.setEffect(new DropShadow(30, GridManager.GRID_COLOR));
             }
         }
@@ -111,5 +108,9 @@ public class View {
 
     public GridManager getGridManager() {
         return gridManager;
+    }
+
+    public Stage getStage() {
+        return stage;
     }
 }

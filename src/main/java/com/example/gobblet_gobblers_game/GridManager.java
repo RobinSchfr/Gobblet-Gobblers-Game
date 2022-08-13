@@ -8,17 +8,15 @@ import javafx.scene.shape.StrokeType;
 
 public class GridManager {
     public static final Color GRID_COLOR = Color.LIGHTGRAY;
-    public static final int GRID_STROKE_WIDTH = 2;
-    public static final int AMOUNT_SQUARES = 9;
     public static final double GOBBLET_GRID_SCALE = 0.7;
+    public static final int AMOUNT_SQUARES = 9;
+    public static final int GRID_STROKE_WIDTH = 2;
 
     private Group grid;
-    private Point2D[] gridPoints;
-    private Game game;
-    private Controller controller;
+    private final Controller controller;
+    private final Point2D[] gridPoints;
 
-    public GridManager(Game game, Controller controller) {
-        this.game = game;
+    public GridManager(Controller controller) {
         this.controller = controller;
         gridPoints = new Point2D[AMOUNT_SQUARES];
         createGrid();
@@ -62,6 +60,14 @@ public class GridManager {
 
     public void removeGobbletFromGrid(Gobblet gobblet) {
         grid.getChildren().remove(gobblet.getImgView());
+    }
+
+    public void drawWinningLine(int[] winCondition) {
+        Line l = new Line(gridPoints[winCondition[0]].getX(), gridPoints[winCondition[0]].getY(), gridPoints[winCondition[2]].getX(), gridPoints[winCondition[2]].getY());
+        l.setStrokeWidth(GRID_STROKE_WIDTH * 2);
+        l.setStroke(GRID_COLOR);
+        l.setStrokeType(StrokeType.OUTSIDE);
+        grid.getChildren().add(l);
     }
 
     public Group getGrid() {

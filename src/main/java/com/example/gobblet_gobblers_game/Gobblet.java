@@ -6,8 +6,8 @@ public class Gobblet {
     public static final String IMAGES_GOBBLETS = "file:src/main/resources/images/gobblet_%s_%d.png";
 
     private GobbletImageView gobbletImageView;
-    private String color;
-    private int number;
+    private final String color;
+    private final int number;
     private int squarePos;
 
     public Gobblet(String color, int number) {
@@ -44,12 +44,10 @@ public class Gobblet {
     }
 
     public int getSquarePos() {
-        System.out.println("SquarePos: " + squarePos);
         return squarePos;
     }
 
     public void setSquarePos(int squarePos) {
-        System.out.println("SetSquarePos: " + squarePos);
         this.squarePos = squarePos;
     }
 }

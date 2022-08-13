@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class GobbletImageView extends ImageView {
-    private Gobblet gobblet;
+    private final Gobblet gobblet;
 
     public GobbletImageView(Image img, Gobblet gobblet) {
         super(img);

@@ -9,6 +9,7 @@ public class Main extends Application {
         Game game = new Game();
         Controller controller = new Controller(game);
         View view = new View(stage, game, controller);
+        game.setView(view);
         controller.setView(view);
     }
 

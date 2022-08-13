@@ -1,16 +1,22 @@
 package com.example.gobblet_gobblers_game;
 
 public class Game {
-    private GameField gameField;
+    public static final String PLAYER_COLOR_1 = "red";
+    public static final String PLAYER_COLOR_2 = "blue";
+
     private Player activePlayer;
-    private Player player1;
-    private Player player2;
+    private View view;
     private boolean finishedTurn;
+    private boolean isRunning;
+    private final GameField gameField;
+    private final Player player1;
+    private final Player player2;
 
     public Game() {
-        player1 = new Player("red");
-        player2 = new Player("blue");
-        gameField = new GameField();
+        isRunning = true;
+        player1 = new Player(PLAYER_COLOR_1);
+        player2 = new Player(PLAYER_COLOR_2);
+        gameField = new GameField(this);
         toggleActivePlayer();
     }
 
@@ -20,10 +26,6 @@ public class Game {
 
     public Player getPlayer1() {
         return player1;
-    }
-
-    public Player getPlayer2() {
-        return player2;
     }
 
     public Player getActivePlayer() {
@@ -48,5 +50,21 @@ public class Game {
 
     public GameField getGameField() {
         return gameField;
+    }
+
+    public void setView(View view) {
+        this.view = view;
+    }
+
+    public View getView() {
+        return view;
+    }
+
+    public boolean isRunning() {
+        return isRunning;
+    }
+
+    public void setRunning(boolean running) {
+        isRunning = running;
     }
 }
