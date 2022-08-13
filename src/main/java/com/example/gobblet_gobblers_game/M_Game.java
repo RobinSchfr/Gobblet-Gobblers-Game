@@ -1,42 +1,42 @@
 package com.example.gobblet_gobblers_game;
 
-public class Game {
+public class M_Game {
     public static final String PLAYER_COLOR_1 = "red";
     public static final String PLAYER_COLOR_2 = "blue";
 
-    private Player activePlayer;
-    private View view;
+    private M_Player activeMPlayer;
+    private V_View view;
     private boolean finishedTurn;
     private boolean isRunning;
-    private final GameField gameField;
-    private final Player player1;
-    private final Player player2;
+    private final M_GameField gameField;
+    private final M_Player player1;
+    private final M_Player player2;
 
-    public Game() {
+    public M_Game() {
         isRunning = true;
-        player1 = new Player(PLAYER_COLOR_1);
-        player2 = new Player(PLAYER_COLOR_2);
-        gameField = new GameField(this);
+        player1 = new M_Player(PLAYER_COLOR_1);
+        player2 = new M_Player(PLAYER_COLOR_2);
+        gameField = new M_GameField(this);
         toggleActivePlayer();
     }
 
-    public Player[] getPlayers() {
-        return new Player[]{player1, player2};
+    public M_Player[] getPlayers() {
+        return new M_Player[]{player1, player2};
     }
 
-    public Player getPlayer1() {
+    public M_Player getPlayer1() {
         return player1;
     }
 
-    public Player getActivePlayer() {
-        return activePlayer;
+    public M_Player getActivePlayer() {
+        return activeMPlayer;
     }
 
     public void toggleActivePlayer() {
-        if (activePlayer == player1) {
-            activePlayer = player2;
+        if (activeMPlayer == player1) {
+            activeMPlayer = player2;
         } else {
-            activePlayer = player1;
+            activeMPlayer = player1;
         }
     }
 
@@ -48,15 +48,15 @@ public class Game {
         this.finishedTurn = finishedTurn;
     }
 
-    public GameField getGameField() {
+    public M_GameField getGameField() {
         return gameField;
     }
 
-    public void setView(View view) {
+    public void setView(V_View view) {
         this.view = view;
     }
 
-    public View getView() {
+    public V_View getView() {
         return view;
     }
 

@@ -2,19 +2,19 @@ package com.example.gobblet_gobblers_game;
 
 import javafx.scene.image.Image;
 
-public class Gobblet {
+public class M_Gobblet {
     public static final String IMAGES_GOBBLETS = "file:src/main/resources/images/gobblet_%s_%d.png";
 
-    private GobbletImageView gobbletImageView;
+    private V_GobbletImageView gobbletImageView;
     private final String color;
     private final int number;
     private int squarePos;
 
-    public Gobblet(String color, int number) {
+    public M_Gobblet(String color, int number) {
         this(color, number, false);
     }
 
-    public Gobblet(String color, int number, boolean addImageView) {
+    public M_Gobblet(String color, int number, boolean addImageView) {
         this.color = color;
         this.number = number;
         squarePos = -1;
@@ -24,7 +24,7 @@ public class Gobblet {
     }
 
     private void loadImageView() {
-        gobbletImageView = new GobbletImageView(new Image(String.format(IMAGES_GOBBLETS, color, number)), this);
+        gobbletImageView = new V_GobbletImageView(new Image(String.format(IMAGES_GOBBLETS, color, number)), this);
     }
 
     public String getColor() {
@@ -35,11 +35,11 @@ public class Gobblet {
         return number;
     }
 
-    public void setImage(GobbletImageView gobbletImageView) {
-        this.gobbletImageView = gobbletImageView;
+    public void setImage(V_GobbletImageView VGobbletImageView) {
+        this.gobbletImageView = VGobbletImageView;
     }
 
-    public GobbletImageView getImgView() {
+    public V_GobbletImageView getImgView() {
         return gobbletImageView;
     }
 

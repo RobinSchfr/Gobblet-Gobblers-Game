@@ -6,9 +6,9 @@ import javafx.stage.Stage;
 public class Main extends Application {
     @Override
     public void start(Stage stage) {
-        Game game = new Game();
-        Controller controller = new Controller(game);
-        View view = new View(stage, game, controller);
+        M_Game game = new M_Game();
+        C_Controller controller = new C_Controller(game);
+        V_View view = new V_View(stage, game, controller);
         game.setView(view);
         controller.setView(view);
     }

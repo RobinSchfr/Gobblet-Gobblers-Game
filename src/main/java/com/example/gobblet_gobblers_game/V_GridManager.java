@@ -6,17 +6,17 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.StrokeType;
 
-public class GridManager {
+public class V_GridManager {
     public static final Color GRID_COLOR = Color.LIGHTGRAY;
     public static final double GOBBLET_GRID_SCALE = 0.7;
     public static final int AMOUNT_SQUARES = 9;
     public static final int GRID_STROKE_WIDTH = 2;
 
     private Group grid;
-    private final Controller controller;
+    private final C_Controller controller;
     private final Point2D[] gridPoints;
 
-    public GridManager(Controller controller) {
+    public V_GridManager(C_Controller controller) {
         this.controller = controller;
         gridPoints = new Point2D[AMOUNT_SQUARES];
         createGrid();
@@ -25,7 +25,7 @@ public class GridManager {
     private void createGrid() {
         grid = new Group();
         Line l1, l2;
-        double gridSize = View.WINDOW_WIDTH;
+        double gridSize = V_View.WINDOW_WIDTH;
         for (int i = 1; i < 3; i++) {
             l1 = new Line(gridSize / 3 * i, 0, gridSize / 3 * i, gridSize);   // vertical lines
             l2 = new Line(0, gridSize / 3 * i, gridSize, gridSize / 3 * i);   // horizontal lines
@@ -46,20 +46,20 @@ public class GridManager {
         }
     }
 
-    public Gobblet setGobbletOnSquare(int squareNr, String color, int number) {
+    public M_Gobblet setGobbletOnSquare(int squareNr, String color, int number) {
         Point2D position = gridPoints[squareNr];
-        Gobblet gobblet = new Gobblet(color, number, true);
-        gobblet.getImgView().setScaleX(GOBBLET_GRID_SCALE);
-        gobblet.getImgView().setScaleY(GOBBLET_GRID_SCALE);
-        gobblet.getImgView().setX(position.getX() - gobblet.getImgView().getImage().getWidth() / 2);
-        gobblet.getImgView().setY(position.getY() - gobblet.getImgView().getImage().getWidth() / 2);
-        grid.getChildren().add(gobblet.getImgView());
-        controller.makeDraggable(gobblet.getImgView());
-        return gobblet;
+        M_Gobblet MGobblet = new M_Gobblet(color, number, true);
+        MGobblet.getImgView().setScaleX(GOBBLET_GRID_SCALE);
+        MGobblet.getImgView().setScaleY(GOBBLET_GRID_SCALE);
+        MGobblet.getImgView().setX(position.getX() - MGobblet.getImgView().getImage().getWidth() / 2);
+        MGobblet.getImgView().setY(position.getY() - MGobblet.getImgView().getImage().getWidth() / 2);
+        grid.getChildren().add(MGobblet.getImgView());
+        controller.makeDraggable(MGobblet.getImgView());
+        return MGobblet;
     }
 
-    public void removeGobbletFromGrid(Gobblet gobblet) {
-        grid.getChildren().remove(gobblet.getImgView());
+    public void removeGobbletFromGrid(M_Gobblet MGobblet) {
+        grid.getChildren().remove(MGobblet.getImgView());
     }
 
     public void drawWinningLine(int[] winCondition) {

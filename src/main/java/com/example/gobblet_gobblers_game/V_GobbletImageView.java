@@ -3,15 +3,15 @@ package com.example.gobblet_gobblers_game;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class GobbletImageView extends ImageView {
-    private final Gobblet gobblet;
+public class V_GobbletImageView extends ImageView {
+    private final M_Gobblet gobblet;
 
-    public GobbletImageView(Image img, Gobblet gobblet) {
+    public V_GobbletImageView(Image img, M_Gobblet gobblet) {
         super(img);
         this.gobblet = gobblet;
     }
 
-    public Gobblet getGobblet() {
+    public M_Gobblet getGobblet() {
         return gobblet;
     }
 }

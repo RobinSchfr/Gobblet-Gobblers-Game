@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
-public class View {
+public class V_View {
     public static final Color PLAYER1_STORAGE_COLOR = Color.LIGHTCORAL;
     public static final Color PLAYER2_STORAGE_COLOR = Color.LIGHTBLUE;
     public static final String BACKGROUND_COLOR = "#191919";
@@ -27,16 +27,16 @@ public class View {
 
     private HBox storage1;
     private HBox storage2;
-    private final Controller controller;
-    private final Game game;
-    private final GridManager gridManager;
+    private final C_Controller controller;
+    private final M_Game game;
     private final Stage stage;
+    private final V_GridManager gridManager;
 
-    public View(Stage stage, Game game, Controller controller) {
+    public V_View(Stage stage, M_Game game, C_Controller controller) {
         this.stage = stage;
         this.game = game;
         this.controller = controller;
-        gridManager = new GridManager(controller);
+        gridManager = new V_GridManager(controller);
         drawGUI();
         showAccessibleUI();
     }
@@ -49,17 +49,17 @@ public class View {
         storage2.setPadding(new Insets(STORAGE_PADDING));
         main.getChildren().addAll(gridManager.getGrid(), storage1, storage2);
         HBox storage;
-        for (Player player : game.getPlayers()) {
-            for (Gobblet gobblet : player.getGobblets()) {
-                if (player == game.getPlayer1()) {
+        for (M_Player MPlayer : game.getPlayers()) {
+            for (M_Gobblet MGobblet : MPlayer.getGobblets()) {
+                if (MPlayer == game.getPlayer1()) {
                     storage = storage1;
                 } else {
                     storage = storage2;
                 }
-                gobblet.getImgView().setScaleX(GOBBLET_STORAGE_SCALE);
-                gobblet.getImgView().setScaleY(GOBBLET_STORAGE_SCALE);
-                storage.getChildren().add(gobblet.getImgView());
-                controller.makeDraggable(gobblet.getImgView());
+                MGobblet.getImgView().setScaleX(GOBBLET_STORAGE_SCALE);
+                MGobblet.getImgView().setScaleY(GOBBLET_STORAGE_SCALE);
+                storage.getChildren().add(MGobblet.getImgView());
+                controller.makeDraggable(MGobblet.getImgView());
             }
         }
         storage1.setBackground(new Background(new BackgroundFill(PLAYER1_STORAGE_COLOR, new CornerRadii(BORDER_RADIUS), null)));
@@ -92,8 +92,8 @@ public class View {
                 continue;
             }
             gridObj.setEffect(null);
-            if (((GobbletImageView) gridObj).getGobblet().getColor().equals(game.getActivePlayer().getColor()) && game.getGameField().isOnTop(((GobbletImageView) gridObj).getGobblet())) {
-                gridObj.setEffect(new DropShadow(30, GridManager.GRID_COLOR));
+            if (((V_GobbletImageView) gridObj).getGobblet().getColor().equals(game.getActivePlayer().getColor()) && game.getGameField().isOnTop(((V_GobbletImageView) gridObj).getGobblet())) {
+                gridObj.setEffect(new DropShadow(30, V_GridManager.GRID_COLOR));
             }
         }
     }
@@ -106,11 +106,15 @@ public class View {
         return storage2;
     }
 
-    public GridManager getGridManager() {
+    public V_GridManager getGridManager() {
         return gridManager;
     }
 
     public Stage getStage() {
         return stage;
+    }
+
+    public C_Controller getController(){
+        return controller;
     }
 }
