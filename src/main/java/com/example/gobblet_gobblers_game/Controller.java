@@ -38,6 +38,7 @@ public class Controller {
             } else {
                 view.getStorage2().getChildren().remove(gIV);
             }
+            tempDragGobblet = null;
             dragEvent.consume();
         });
     }
@@ -65,8 +66,6 @@ public class Controller {
             game.getGameField().checkForWin();
             dragEvent.consume();
         });
-
-        scene.setOnDragExited(dragEvent -> tempDragGobblet = null);
     }
 
     private int getSquare(Event event) {
