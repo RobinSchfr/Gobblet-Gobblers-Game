@@ -105,5 +105,4 @@ public class C_Controller {
     public void setView(V_View view) {
         this.view = view;
     }
-
 }

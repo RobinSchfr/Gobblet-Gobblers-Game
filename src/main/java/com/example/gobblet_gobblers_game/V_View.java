@@ -109,12 +109,4 @@ public class V_View {
     public V_GridManager getGridManager() {
         return gridManager;
     }
-
-    public Stage getStage() {
-        return stage;
-    }
-
-    public C_Controller getController(){
-        return controller;
-    }
 }
