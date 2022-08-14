@@ -76,7 +76,6 @@ public class M_GameField {
         if (winColor != null) {
             game.getView().getGridManager().drawWinningLine(winCondition);
             game.setRunning(false);
-            game.getView().getController().closeWindow();
         }
     }
 

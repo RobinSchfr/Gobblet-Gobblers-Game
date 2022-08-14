@@ -1,12 +1,9 @@
 package com.example.gobblet_gobblers_game;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.event.Event;
 import javafx.scene.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.*;
-import javafx.util.Duration;
 
 public class C_Controller {
     private M_Gobblet tempDragGobblet;
@@ -103,11 +100,6 @@ public class C_Controller {
             squareNumber = 8;
         }
         return squareNumber;
-    }
-
-    public void closeWindow() {
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), actionEvent -> game.getView().getStage().close()));
-        timeline.play();
     }
 
     public void setView(V_View view) {
