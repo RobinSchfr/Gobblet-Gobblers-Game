@@ -48,7 +48,13 @@ public class M_GameField {
         int[][] winConditions = {{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}, {0, 4, 8}, {2, 4, 6}};
         int[] winCondition = null;
         String winColor = null;
-        for (String color : new String[]{M_Game.PLAYER_COLOR_1, M_Game.PLAYER_COLOR_2}) {
+        String[] colors;
+        if (game.getActivePlayer() == game.getPlayer1()){
+            colors = new String[]{M_Game.PLAYER_COLOR_1, M_Game.PLAYER_COLOR_2};
+        } else {
+            colors = new String[]{M_Game.PLAYER_COLOR_2, M_Game.PLAYER_COLOR_1};
+        }
+        for (String color : colors) {
             if (winColor != null) {
                 break;
             }
